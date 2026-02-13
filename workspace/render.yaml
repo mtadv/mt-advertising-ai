@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: mt-advertising-ai
+    runtime: docker
+    plan: starter
+    healthCheckPath: "/health"
+    envVars:
+      - key: PORT
+        value: "8080"
+      - key: SETUP_PASSWORD
+        sync: false
+      - key: OPENCLAW_STATE_DIR
+        value: /data/.openclaw
+      - key: OPENCLAW_WORKSPACE_DIR
+        value: /data/workspace
+      - key: OPENCLAW_GATEWAY_TOKEN
+        generateValue: true
+      - key: GEMINI_API_KEY
+        fromSecret: GEMINI_API_KEY
+      - key: ADMIN_MOBILE
+        value: "+201001615441"
+      - key: CANVAS_DIR
+        value: /app/.openclaw/canvas
+    disk:
+      name: openclaw-data
+      mountPath: /data
+      sizeGB: 1
